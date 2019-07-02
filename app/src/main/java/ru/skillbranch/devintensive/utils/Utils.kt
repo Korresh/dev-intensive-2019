@@ -14,16 +14,18 @@ object Utils {
         return firstName to lastName
     }
 
-    fun transliteration(payload: String, divider: String = " "): String {
-        //TODO FIX ME!!!
-        return "nn"
+    fun transliteration(payload: String, divider: String = " "): String{
+        return "YY"
     }
 
-    fun toinitials(firstName: String?, lastName: String?): String? {
-        var firstChar   = firstName?.get(0)
-        var lastChar = lastName?.get(0)
-        var init: String? ="$firstChar$lastChar"
-        var new = init?.toUpperCase()
-        return new
+    fun toInitials(firstName: String?, lastName: String?): String? {
+        var initials: String?
+        when {
+            firstName.isNullOrBlank() && lastName.isNullOrBlank() -> initials = null
+            firstName.isNullOrBlank() -> initials = lastName?.first().toString().toUpperCase()
+            lastName.isNullOrBlank() -> initials = firstName?.first().toString().toUpperCase()
+            else -> initials = (firstName?.first().toString()+lastName?.first().toString()).toUpperCase()
+        }
+        return (initials)
     }
 }
