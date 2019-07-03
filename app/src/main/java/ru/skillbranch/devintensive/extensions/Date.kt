@@ -33,29 +33,29 @@ fun Date.add(value:Int, units: TimeUnits = TimeUnits.SECOND) : Date{
 fun Date.humanizeDiff(date: Date = Date()): String {
 
     val diff = abs(date.time - this.time)
-    val seconds=diff/1000
-    val minutes = diff/60000
-    val hours = diff/3600000
-    val days = diff/86000400
+    val seconds=(diff/1000).toInt()
+    val minutes = (diff/60000).toInt()
+    val hours = (diff/3600000).toInt()
+    val days = (diff/86000400).toInt()
     val bolee = date.time > this.time
-    println("diff: $diff ,seconds: $seconds ,minutes: $minutes ,hour: $hours ,days: $days")
+//   println("diff: $diff ,seconds: $seconds ,minutes: $minutes ,hour: $hours ,days: $days")
     return if(bolee) when {
         days > 360 -> "более года назад"
-        hours > 26 -> "$days  назад"
+        hours > 26 -> "${TimeUnits.DAY.plural(days)} назад"
         hours in 23..26 -> "день назад"
-        hours<=22&& minutes>75 ->"$hours назад"
+        hours<=22&& minutes>75 ->"${TimeUnits.HOUR.plural(hours)} назад"
         minutes in 46..75 ->"час назад"
-        minutes<=45&& seconds>75 ->"$minutes назад"
+        minutes<=45&& seconds>75 ->"${TimeUnits.MINUTE.plural(minutes)} назад"
         seconds in 46..75 ->"минуту назад"
         seconds in 2..45 ->"несколько секунд назад"
         else ->"только что"
     }else when{
         days >360 -> "более чем через год"
-        hours > 26 -> "через $days дней"
+        hours > 26 -> "через ${TimeUnits.DAY.plural(days)}"
         hours in 23..26 -> "через день"
-        hours<=22&& minutes>75 ->"через $hours часа}"
+        hours<=22&& minutes>75 ->"через ${TimeUnits.HOUR.plural(hours)}"
         minutes in 46..75 ->"через час"
-        minutes<=45&& seconds>75 ->"через $minutes минут}"
+        minutes<=45&& seconds>75 ->"через ${TimeUnits.MINUTE.plural(minutes)}"
         seconds in 46..75 ->"через минуту"
         seconds in 2..45 ->"через несколько секунд"
         else ->"только что"
@@ -64,10 +64,19 @@ fun Date.humanizeDiff(date: Date = Date()): String {
 }
 
 
+enum class TimeUnits(val first: String, val few: String, val many: String) {
+    SECOND("секунду", "секунды", "секунд"),
+    MINUTE("минуту", "минуты", "минут"),
+    HOUR("час", "часа", "часов"),
+    DAY("день", "дня", "дней");
 
-enum class TimeUnits{
-    SECOND,
-    MINUTE,
-    HOUR,
-    DAY
+    fun plural(value: Int): String {
+        val value = abs(value)
+        return when {
+            value % 100 in 5..20 -> "$value $many"
+            value % 10 == 1 -> "$value $first"
+            value % 10 in 2..4->"$value $few"
+            else -> "$value $many"
+        }
+    }
 }
