@@ -10,8 +10,8 @@ fun String.truncate(i: Int=16): String {
     }
 }
 fun String.stripHtml(): String{
-    val streg = Regex("""&|<|>|'|""|/|p|class="title"""").replace(this, "").trim()
+    val streg = Regex("<[^<]*?>|&\\d+;").replace(this, "")
     val newStreg =  Regex("""\s+""").replace(streg, " ")
 
-   return "$newStreg"
+    return "${newStreg}"
 }
