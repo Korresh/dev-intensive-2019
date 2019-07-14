@@ -17,7 +17,7 @@ class Bender(var status: Status = Status.NORMAL, var question:Question = Questio
 
         return if (question.answers.contains(answer)) {
             question = question.nextQuestion()
-            return    "Отлично - ты справился\n${question.question}" to status.color
+            return "Отлично - ты справился\n${question.question}" to status.color
         } else {
             status = status.nextStatus()
             if (status.equals(Status.NORMAL)) question = Question.NAME
