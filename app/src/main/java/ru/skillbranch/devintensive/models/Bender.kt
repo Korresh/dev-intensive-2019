@@ -23,9 +23,9 @@ class Bender(var status: Status = Status.NORMAL, var question:Question = Questio
             if (status.equals(Status.NORMAL)) question = Question.NAME
             when (status) {
                 Status.NORMAL -> "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
-                Status.WARNING -> "Это не правильный ответ!\n${question.question}" to status.color
-                Status.DANGER -> "Это не правильный ответ!\n${question.question}" to status.color
-                Status.CRITICAL -> "Это не правильный ответ!\n${question.question}" to status.color
+                Status.WARNING -> "Это не правильный ответ\n${question.question}" to status.color
+                Status.DANGER -> "Это не правильный ответ\n${question.question}" to status.color
+                Status.CRITICAL -> "Это не правильный ответ\n${question.question}" to status.color
 
             }
         }
