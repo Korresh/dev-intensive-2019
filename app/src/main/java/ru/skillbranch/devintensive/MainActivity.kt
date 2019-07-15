@@ -12,6 +12,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.skillbranch.devintensive.models.Bender
+import android.view.inputmethod.EditorInfo
+
+
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     lateinit var benderImage: ImageView
@@ -43,20 +46,29 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         messageEt = et_message
         sendBtn = iv_send
 
+        sendButtonDone(messageEt)
         val status = savedInstanceState?.getString("STATUS") ?: Bender.Status.NORMAL.name
         val question = savedInstanceState?.getString("QUESTION") ?: Bender.Question.NAME.name
-        benderObj = Bender(Bender.Status.valueOf(status),Bender.Question.valueOf(question))
+        benderObj = Bender(Bender.Status.valueOf(status), Bender.Question.valueOf(question))
 
-        Log.d("M_MainActivity","onCreate $status $question")
-
-        val (r,g,b) = benderObj.status.color
-        benderImage.setColorFilter(Color.rgb(r,g,b),PorterDuff.Mode.MULTIPLY)
+        Log.d("M_MainActivity", "onCreate $status $question")
+        val (r, g, b) = benderObj.status.color
+        benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
 
         textTxt.text = (benderObj.askQuestion())
         sendBtn.setOnClickListener(this)
-
-
     }
+
+        fun sendButtonDone(editText: EditText){
+        editText.setOnEditorActionListener() { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE)sendBtn.performClick()
+                false
+
+            }
+        }
+
+
+
 
     /**
      * Если Activity возвращается в приоритетный режим после вызова onStop(),
