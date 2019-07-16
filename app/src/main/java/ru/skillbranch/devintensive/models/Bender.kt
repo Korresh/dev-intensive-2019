@@ -17,13 +17,13 @@ class Bender(var status: Status = Status.NORMAL, var question:Question = Questio
     fun listenAnswer(answer:String) : Pair<String,Triple<Int,Int,Int>> {
         if (question.validate(answer)) {
             return if (question.answers.contains(answer.toLowerCase())) {
-                question = question.nextQuestion()
-                "Отлично - ты справился\n${question.question}" to status.color
+                    question = question.nextQuestion()
+                    "Отлично - ты справился\n${question.question}" to status.color
             } else {
                 if (status.equals(Status.CRITICAL)) {
-                    question = Question.NAME
-                    status = Status.NORMAL
-                    "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
+                        question = Question.NAME
+                        status = Status.NORMAL
+                        "Это неправильный ответ. Давай все по новой\n${question.question}" to status.color
                 }else{status = status.nextStatus()
                 "Это неправильный ответ\n${question.question}" to status.color
                 }
@@ -50,11 +50,11 @@ class Bender(var status: Status = Status.NORMAL, var question:Question = Questio
     enum class Question (val question:String, val answers:List<String>,val validation:String?){
         NAME("Как меня зовут?",listOf("бендер","bender"),"Имя должно начинаться с заглавной буквы") {
             override fun nextQuestion(): Question = PROFESSION
-            override fun validate(answer: String):Boolean = answer[0].isUpperCase()
+            override fun validate(answer: String):Boolean = answer.trim()[0].isUpperCase()
         },
         PROFESSION("Назови мою профессию?",listOf("сгибальщик","bender"),"Профессия должна начинаться со строчной буквы") {
             override fun nextQuestion(): Question = MATERIAL
-            override fun validate(answer: String):Boolean = answer[0].isLowerCase()
+            override fun validate(answer: String):Boolean = answer.trim()[0].isLowerCase()
         },
         MATERIAL("Из чего я сделан?",listOf("металл","дерево","metal","iron","wood"),"Материал не должен содержать цифр") {
             override fun nextQuestion(): Question = BDAY
@@ -62,16 +62,16 @@ class Bender(var status: Status = Status.NORMAL, var question:Question = Questio
         },
         BDAY("Когда меня создали?",listOf("2993"),"Год моего рождения должен содержать только цифры") {
             override fun nextQuestion(): Question = SERIAL
-            override fun validate(answer: String):Boolean = answer.isDigitsOnly()
+            override fun validate(answer: String):Boolean = answer.trim().isDigitsOnly()
 
         },
         SERIAL("Мой серийный номер?",listOf("2716057"),"Серийный номер содержит только цифры, и их 7") {
             override fun nextQuestion(): Question = IDLE
-            override fun validate(answer: String):Boolean = answer.isDigitsOnly()&&answer.length==7
+            override fun validate(answer: String):Boolean = answer.trim().isDigitsOnly()&&answer.length==7
         },
-        IDLE("На этом все, вопросов больше нет",listOf(),null) {
+        IDLE("На этом все, вопросов больше нет",listOf(),"") {
             override fun nextQuestion(): Question = IDLE
-            override fun validate(answer: String):Boolean = true
+            override fun validate(answer: String):Boolean = false
         };
 
         abstract fun nextQuestion():Question
