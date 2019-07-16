@@ -16,7 +16,7 @@ class Bender(var status: Status = Status.NORMAL, var question:Question = Questio
 
     fun listenAnswer(answer:String) : Pair<String,Triple<Int,Int,Int>> {
         if (question.validate(answer)) {
-            return if (question.answers.contains(answer.toLowerCase())) {
+            return if (question.answers.contains(answer)) {
                 question = question.nextQuestion()
                 "Отлично - ты справился\n${question.question}" to status.color
             } else {
