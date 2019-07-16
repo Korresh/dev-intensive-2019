@@ -28,7 +28,7 @@ class Bender(var status: Status = Status.NORMAL, var question:Question = Questio
                 "Это неправильный ответ\n${question.question}" to status.color
                 }
             }
-        } else { return "${question.validation}" to status.color
+        } else { return "${question.validation}\n${question.question}" to status.color
         }
     }
 
