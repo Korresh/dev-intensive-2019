@@ -47,7 +47,7 @@ class Bender(var status: Status = Status.NORMAL, var question:Question = Questio
             }
         }
     }
-    enum class Question (val question:String, val answers:List<String>,val validation:String?){
+    enum class Question (val question:String, val answers:List<String>,val validation:String){
         NAME("Как меня зовут?",listOf("бендер","bender"),"Имя должно начинаться с заглавной буквы") {
             override fun nextQuestion(): Question = PROFESSION
             override fun validate(answer: String):Boolean = answer.trim()[0].isUpperCase()
