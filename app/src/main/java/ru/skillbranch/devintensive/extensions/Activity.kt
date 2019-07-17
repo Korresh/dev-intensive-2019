@@ -14,7 +14,7 @@ fun Activity.hideKeyboard() {
     }
 }
 
-fun SoftKeyboardShow(rootView:View): Boolean {
+fun Activity.isKeyboardOpen(rootView:View): Boolean {
         val softKeyboardHeight = 100
         val rect = Rect()
 
@@ -25,4 +25,4 @@ fun SoftKeyboardShow(rootView:View): Boolean {
         return heightDiff > softKeyboardHeight * dm.density
 }
 
-fun SoftKeyboardClose(): Boolean = this.isKeyboardOpen().not()
+fun Activity.isKeyboardClosed(): Boolean = this.isKeyboardOpen().not()
