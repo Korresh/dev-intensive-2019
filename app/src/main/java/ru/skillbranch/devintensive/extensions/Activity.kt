@@ -1,6 +1,8 @@
 package ru.skillbranch.devintensive.extensions
 
 import android.content.Context
+import android.graphics.Rect
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.app.Activity as Activity
 
@@ -11,3 +13,16 @@ fun Activity.hideKeyboard() {
         imm?.let { it.hideSoftInputFromWindow(v.windowToken, 0) }
     }
 }
+
+fun SoftKeyboardShow(rootView:View): Boolean {
+        val softKeyboardHeight = 100
+        val rect = Rect()
+
+        rootView.getWindowVisibleDisplayFrame(rect)
+
+        val dm = rootView.resources.displayMetrics
+        val heightDiff = rootView.bottom - rect.bottom
+        return heightDiff > softKeyboardHeight * dm.density
+}
+
+fun SoftKeyboardClose(): Boolean = this.isKeyboardOpen().not()
