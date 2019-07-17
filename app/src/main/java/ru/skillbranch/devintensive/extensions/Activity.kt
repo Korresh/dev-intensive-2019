@@ -1,5 +1,6 @@
 package ru.skillbranch.devintensive.extensions
 
+import android.R.id.content
 import android.content.Context
 import android.graphics.Rect
 import android.view.View
@@ -17,7 +18,7 @@ fun Activity.hideKeyboard() {
 }
 
 fun Activity.isKeyboardOpen(): Boolean {
-        val rootView = window.decorView
+        val rootView = findViewById<View>(content)
         val softKeyboardHeight = 100
         val rect = Rect()
 
