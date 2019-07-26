@@ -5,8 +5,6 @@ import android.content.Context
 import android.graphics.Rect
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import kotlinx.android.synthetic.main.activity_main.view.*
-import ru.skillbranch.devintensive.R
 import android.app.Activity as Activity
 
 fun Activity.hideKeyboard() {
