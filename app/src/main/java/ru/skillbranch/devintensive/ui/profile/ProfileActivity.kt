@@ -31,7 +31,7 @@ class ProfileActivity : AppCompatActivity(){
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        //TODO set custom Theme this befoer super and setContentView
+        //TODO set custom Theme this before super and setContentView
 
 
         super.onCreate(savedInstanceState)

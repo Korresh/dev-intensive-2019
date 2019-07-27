@@ -21,6 +21,7 @@ object PreferencesRepository {
     private val prefs: SharedPreferences by lazy {
         val ctx = App.applicationContext()
         PreferenceManager.getDefaultSharedPreferences(ctx)
+
     }
 
 
