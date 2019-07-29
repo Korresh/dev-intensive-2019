@@ -4,11 +4,9 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import android.widget.ImageView
-import androidx.annotation.Dimension
 import androidx.core.content.ContextCompat
-import ru.skillbranch.devintensive.App
 import ru.skillbranch.devintensive.R
-import ru.skillbranch.devintensive.utils.Utils
+
 
 class CircleImageView @JvmOverloads constructor(
     context: Context,

@@ -95,8 +95,8 @@ object Utils {
         when {
             firstName.isNullOrBlank() && lastName.isNullOrBlank() -> initials = null
             firstName.isNullOrBlank() -> initials = lastName?.first().toString().toUpperCase()
-            lastName.isNullOrBlank() -> initials = firstName?.first().toString().toUpperCase()
-            else -> initials = (firstName?.first().toString()+lastName?.first().toString()).toUpperCase()
+            lastName.isNullOrBlank() -> initials = firstName.first().toString().toUpperCase()
+            else -> initials = (firstName.first().toString()+lastName.first().toString()).toUpperCase()
         }
         return (initials)
     }

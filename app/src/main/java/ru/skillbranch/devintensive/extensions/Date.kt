@@ -71,12 +71,12 @@ enum class TimeUnits(val first: String, val few: String, val many: String) {
     DAY("день", "дня", "дней");
 
     fun plural(value: Int): String {
-        val value = abs(value)
+        val svalue = abs(value)
         return when {
-            value % 100 in 5..20 -> "$value $many"
-            value % 10 == 1 -> "$value $first"
-            value % 10 in 2..4->"$value $few"
-            else -> "$value $many"
+            svalue % 100 in 5..20 -> "$svalue $many"
+            svalue % 10 == 1 -> "$svalue $first"
+            svalue % 10 in 2..4->"$svalue $few"
+            else -> "$svalue $many"
         }
     }
 }
