@@ -87,7 +87,6 @@ object Utils {
             }
         }
         return if (divider != " ") tsstring.replace(" ", divider) else tsstring
-
     }
 
     fun toInitials(firstName: String?, lastName: String?): String? {
@@ -95,8 +94,8 @@ object Utils {
         when {
             firstName.isNullOrBlank() && lastName.isNullOrBlank() -> initials = null
             firstName.isNullOrBlank() -> initials = lastName?.first().toString().toUpperCase()
-            lastName.isNullOrBlank() -> initials = firstName?.first().toString().toUpperCase()
-            else -> initials = (firstName?.first().toString()+lastName?.first().toString()).toUpperCase()
+            lastName.isNullOrBlank() -> initials = firstName.first().toString().toUpperCase()
+            else -> initials = (firstName.first().toString()+lastName.first().toString()).toUpperCase()
         }
         return (initials)
     }
