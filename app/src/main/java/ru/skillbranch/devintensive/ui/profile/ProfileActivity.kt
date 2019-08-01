@@ -166,5 +166,5 @@ class ProfileActivity : AppCompatActivity(){
     }
 
     fun isValidateRepo(repo : String): Boolean =
-        repo.matches(Regex("""(https://)?(www.)?github.com/(\w*[^/])""")) || repo.isBlank()
+        repo.matches(Regex("""(https://)?(www.)?github.com/(?!enterprise|features|topics|collections|trending|events|marketplace|pricing|nonprofit|customer-stories|security|login|join)(\w*[^/])""")) || repo.isBlank()
 }
