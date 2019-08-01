@@ -106,6 +106,11 @@ class ProfileActivity : AppCompatActivity(){
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
                 validRepo = (isValidateRepo(s.toString()))
+                if (!validRepo){
+                    wr_repository.error = "Невалидный адрес репозитория"
+                }else{
+                    wr_repository.error = null
+                }
 
             }
         })
@@ -143,18 +148,14 @@ class ProfileActivity : AppCompatActivity(){
 
             background.colorFilter = filter
             setImageDrawable(icon)
+
+            if (!validRepo) et_repository.text.clear()
+
         }
 
     }
 
     private fun saveProfileInfo(){
-        if (!validRepo){
-            et_repository.text.clear()
-            wr_repository.error = "Невалидный адрес репозитория"
-            }else{
-                wr_repository.error = null
-            }
-
         Profile(
             firstName = et_first_name.text.toString(),
             lastName = et_last_name.text.toString(),
