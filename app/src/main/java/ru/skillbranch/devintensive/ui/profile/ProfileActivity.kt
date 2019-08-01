@@ -7,6 +7,8 @@ import android.graphics.PorterDuffColorFilter
 import androidx.appcompat.app.AppCompatActivity
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.EditText
@@ -27,6 +29,7 @@ class ProfileActivity : AppCompatActivity(){
 
     private lateinit var viewModel: ProfileViewModel
     var isEditMode = false
+    var validRepo = true
     lateinit var viewFields: Map<String,TextView>
 
 
@@ -87,11 +90,25 @@ class ProfileActivity : AppCompatActivity(){
             if (isEditMode) saveProfileInfo()
             isEditMode = !isEditMode
             showCurrentMode(isEditMode)
+
         }
 
         btn_switch_theme.setOnClickListener{
             viewModel.switchTheme()
         }
+
+        et_repository.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+                validRepo = (isValidateRepo(s.toString()))
+
+            }
+        })
 
     }
 
@@ -131,6 +148,13 @@ class ProfileActivity : AppCompatActivity(){
     }
 
     private fun saveProfileInfo(){
+        if (!validRepo){
+            et_repository.text.clear()
+            wr_repository.error = "Невалидный адрес репозитория"
+            }else{
+                wr_repository.error = null
+            }
+
         Profile(
             firstName = et_first_name.text.toString(),
             lastName = et_last_name.text.toString(),
@@ -140,4 +164,7 @@ class ProfileActivity : AppCompatActivity(){
             viewModel.saveProfileData(this)
         }
     }
+
+    fun isValidateRepo(repo : String): Boolean =
+        repo.matches(Regex("""(https://)?(www.)?github.com/(\w*[^/])""")) || repo.isBlank()
 }
