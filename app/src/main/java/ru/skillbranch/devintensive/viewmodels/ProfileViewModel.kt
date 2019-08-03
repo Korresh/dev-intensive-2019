@@ -16,7 +16,7 @@ class ProfileViewModel : ViewModel(){
     private val appTheme = MutableLiveData<Int>()
     
     init {
-        Log.d("M_ProfileViewModel","init view model")
+//        Log.d("M_ProfileViewModel","init view model")
         profileData.value = repository.getProfile()
         appTheme.value = repository.getAppTheme()
     }

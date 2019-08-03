@@ -1,15 +1,16 @@
 package ru.skillbranch.devintensive.ui.profile
 
 
-import android.graphics.ColorFilter
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
+import android.content.Context
+import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
 import androidx.appcompat.app.AppCompatActivity
 
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -18,8 +19,9 @@ import kotlinx.android.synthetic.main.activity_profile.*
 
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
+import ru.skillbranch.devintensive.utils.Utils
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
-import java.util.*
+import kotlin.math.roundToInt
 
 
 class ProfileActivity : AppCompatActivity(){
@@ -55,7 +57,6 @@ class ProfileActivity : AppCompatActivity(){
     }
 
     private fun updateTheme(mode: Int) {
-        Log.d("M_ProfileActivity","updateTheme")
         delegate.setLocalNightMode(mode)
 
     }
@@ -65,7 +66,11 @@ class ProfileActivity : AppCompatActivity(){
             for((k,v)in viewFields){
                 v.text = it[k].toString()
             }
-
+            val initials = Utils.toInitials(profile.firstName,profile.lastName)
+            if (initials != null) {
+                drawDefaultAvatar(initials)
+            }else{ iv_avatar.setImageResource(R.drawable.avatar_default)
+            }
         }
 
     }
@@ -168,4 +173,31 @@ class ProfileActivity : AppCompatActivity(){
 
     fun isValidateRepo(repo : String): Boolean =
         repo.matches(Regex("""(https://)?(www.)?github.com/(?!enterprise|features|topics|collections|trending|events|marketplace|pricing|nonprofit|customer-stories|security|login|join)(\w*[^/])""")) || repo.isBlank()
+
+    private fun drawDefaultAvatar(initials: String, textSize: Float = 48f, color: Int = Color.WHITE) {
+        val bitmap = textAsBitmap(initials, textSize, color)
+        val drawable = BitmapDrawable(resources, bitmap)
+        iv_avatar.setImageDrawable(drawable)
+    }
+
+    private fun textAsBitmap(text:String, textSize:Float, textColor:Int): Bitmap {
+        val dp = resources.displayMetrics.density.roundToInt()
+        val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+        paint.textSize = textSize*dp
+        paint.color = textColor
+        paint.textAlign = Paint.Align.CENTER
+
+        val image = Bitmap.createBitmap(112*dp, 112*dp, Bitmap.Config.ARGB_8888)
+
+        image.eraseColor(getThemeAccentColor(this))
+        val canvas = Canvas(image)
+        canvas.drawText(text, 56f*dp, 56f*dp + paint.textSize/3, paint)
+        return image
+    }
+
+    private fun getThemeAccentColor(context: Context): Int {
+        val value = TypedValue()
+        context.theme.resolveAttribute(R.attr.colorAccent, value, true)
+        return value.data
+    }
 }
