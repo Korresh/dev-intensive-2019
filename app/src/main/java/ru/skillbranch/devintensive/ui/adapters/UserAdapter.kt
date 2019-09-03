@@ -15,7 +15,6 @@ import ru.skillbranch.devintensive.models.data.UserItem
 
 
 class UserAdapter(val listener: (UserItem)->Unit) : RecyclerView.Adapter<UserAdapter.UserViewHolder>(){
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     var items: List<UserItem> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {

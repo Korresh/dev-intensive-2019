@@ -18,7 +18,7 @@ data class Chat(
 ) {
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun unreadableMessageCount():Int{
-       var messagesUnread = messages.filter { !it.isReaded }
+        var messagesUnread = messages.filter { !it.isReaded }
         return messagesUnread.count()
     }
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
