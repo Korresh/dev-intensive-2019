@@ -17,8 +17,10 @@ import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_group.toolbar
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.skillbranch.devintensive.R
+import ru.skillbranch.devintensive.models.data.ChatType
 import ru.skillbranch.devintensive.ui.adapters.ChatAdapter
 import ru.skillbranch.devintensive.ui.adapters.ChatItemTouchHelperCallback
+import ru.skillbranch.devintensive.ui.archive.ArchiveActivity
 import ru.skillbranch.devintensive.ui.group.GroupActivity
 import ru.skillbranch.devintensive.viewmodels.MainViewModel
 
@@ -64,12 +66,18 @@ class MainActivity : AppCompatActivity() {
     private fun initViews() {
 
         chatAdapter = ChatAdapter{
-            Snackbar.make(rv_chat_list,"Click on ${it.title}",Snackbar.LENGTH_SHORT).show()
+             if (it.chatType == ChatType.ARHIVE){
+                 val intent = Intent(this, ArchiveActivity::class.java)
+                 startActivity(intent)
+             }else{
+
+                 Snackbar.make(rv_chat_list, "Click on ${it.title}", Snackbar.LENGTH_SHORT).show()
+             }
         }
         val divider = DividerItemDecoration(this,DividerItemDecoration.VERTICAL)
         val touchCallback = ChatItemTouchHelperCallback(chatAdapter){
-            viewModel.addToArchive(it.id)
             val id = it.id
+            viewModel.addToArchive(it.id)
             Snackbar.make(rv_chat_list, "Вы точно хотите добавить ${it.title} в архив?", Snackbar.LENGTH_LONG)
                 .setAction("ОТМЕНА") {viewModel.restoreFromArchive(id)}
                 .show()
