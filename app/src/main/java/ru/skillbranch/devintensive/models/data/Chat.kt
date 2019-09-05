@@ -37,7 +37,7 @@ data class Chat(
 
     private fun isSingle():Boolean = members.size == 1
     fun toChatItem(): ChatItem {
-           return if(isSingle()) {
+           return if(isSingle()&& !isArchived) {
                val user = members.first()
                ChatItem(
                    id,
@@ -49,7 +49,7 @@ data class Chat(
                    lastMessageDate()?.shortFormat(),
                    user.isOnline
                )
-           }else{
+           }else if (!isArchived){
                ChatItem(
                    id,
                    null,
@@ -61,6 +61,20 @@ data class Chat(
                    false,
                    ChatType.GROUP,
                    lastMessageShort().second
+               )
+           }else{
+
+               ChatItem(
+                   id,
+                   null,
+                   "",
+                   "Архив чатов",
+                   lastMessageShort().first,
+                   unreadableMessageCount(),
+                   lastMessageDate()?.shortFormat(),
+                   false,
+                   ChatType.ARHIVE,
+                   "${members.first().firstName}"
                )
            }
     }

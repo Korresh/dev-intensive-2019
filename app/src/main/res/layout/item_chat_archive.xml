@@ -18,7 +18,6 @@
             android:id="@+id/tv_title_archive"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/archive_chats"
             android:textColor="@color/color_primary"
             android:fontFamily="sans-serif-medium"
             android:textSize="14sp"
