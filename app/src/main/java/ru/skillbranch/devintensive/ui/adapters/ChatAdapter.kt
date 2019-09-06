@@ -133,7 +133,7 @@ class ChatAdapter(val listener : (ChatItem)->Unit) : RecyclerView.Adapter<ChatAd
 
             with(tv_date_group) {
                 visibility = if (item.messageCount > 0) View.VISIBLE else View.GONE
-                text = item.messageCount.toString()
+                text = item.lastMessageDate
             }
 
             with(tv_counter_group) {

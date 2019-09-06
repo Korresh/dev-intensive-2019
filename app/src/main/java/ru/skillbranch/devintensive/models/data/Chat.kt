@@ -75,7 +75,7 @@ data class Chat(
                    chatsLast.last().lastMessageDate()?.shortFormat(),
                    false,
                    ChatType.ARCHIVE,
-                   "@${chatsLast.last().members.first().firstName}"
+                   "@${chatsLast.last().lastMessageShort().second}"
                )
            }
     }
