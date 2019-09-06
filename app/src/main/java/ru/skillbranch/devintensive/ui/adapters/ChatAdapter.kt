@@ -31,7 +31,7 @@ class ChatAdapter(val listener : (ChatItem)->Unit) : RecyclerView.Adapter<ChatAd
     var items : List<ChatItem> = listOf()
 
     override fun getItemViewType(position: Int): Int = when(items[position].chatType){
-        ChatType.ARHIVE -> ARCHIVE_TYPE
+        ChatType.ARCHIVE -> ARCHIVE_TYPE
         ChatType.SINGLE -> SINGLE_TYPE
         ChatType.GROUP -> GROUP_TYPE
     }

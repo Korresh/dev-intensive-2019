@@ -74,7 +74,7 @@ data class Chat(
                    chatsLast.sumBy { it.unreadableMessageCount()},
                    chatsLast.last().lastMessageDate()?.shortFormat(),
                    false,
-                   ChatType.ARHIVE,
+                   ChatType.ARCHIVE,
                    "@${chatsLast.last().members.first().firstName}"
                )
            }
@@ -84,7 +84,7 @@ data class Chat(
 enum class ChatType{
     SINGLE,
     GROUP,
-    ARHIVE
+    ARCHIVE
 }
 
 
