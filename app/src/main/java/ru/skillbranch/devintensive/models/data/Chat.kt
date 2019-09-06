@@ -6,6 +6,7 @@ import ru.skillbranch.devintensive.extensions.shortFormat
 import ru.skillbranch.devintensive.models.BaseMessage
 import ru.skillbranch.devintensive.models.ImageMessage
 import ru.skillbranch.devintensive.models.TextMessage
+import ru.skillbranch.devintensive.repositories.ChatRepository
 import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
 
@@ -63,18 +64,18 @@ data class Chat(
                    lastMessageShort().second
                )
            }else{
-
+               val chatsLast =  ChatRepository.loadChats().value!!.filter { it.isArchived }.sortedBy { it.lastMessageDate() }
                ChatItem(
-                   id,
+                   "-1",
                    null,
                    "",
                    "Архив чатов",
-                   lastMessageShort().first,
-                   unreadableMessageCount(),
-                   lastMessageDate()?.shortFormat(),
+                   chatsLast.last().lastMessageShort().first,
+                   chatsLast.sumBy { it.unreadableMessageCount()},
+                   chatsLast.last().lastMessageDate()?.shortFormat(),
                    false,
                    ChatType.ARHIVE,
-                   "@${members.first().firstName}"
+                   "@${chatsLast.last().members.first().firstName}"
                )
            }
     }

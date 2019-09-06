@@ -42,7 +42,6 @@ class ChatAdapter(val listener : (ChatItem)->Unit) : RecyclerView.Adapter<ChatAd
             SINGLE_TYPE -> SingleViewHolder(inflater.inflate(R.layout.item_chat_single, parent, false))
             GROUP_TYPE -> GroupViewHolder(inflater.inflate(R.layout.item_chat_group, parent, false))
             else -> ArchiveViewHolder(inflater.inflate(R.layout.item_chat_archive, parent, false))
-            //else -> SingleViewHolder(inflater.inflate(R.layout.item_chat_single, parent, false))
         }
     }
 
@@ -153,20 +152,13 @@ class ChatAdapter(val listener : (ChatItem)->Unit) : RecyclerView.Adapter<ChatAd
             }
         }
     }
-    inner class ArchiveViewHolder (convertView: View): ChatItemViewHolder (convertView), ItemTouchViewHolder{
-        override fun onItemSelected() {
-            itemView.setBackgroundColor(Color.LTGRAY)
-        }
+    inner class ArchiveViewHolder (convertView: View): ChatItemViewHolder (convertView){
 
-        override fun onItemCleared() {
-            itemView.setBackgroundColor(Color.WHITE)
-        }
-
-        override fun bind(item:ChatItem, listener: (ChatItem) -> Unit){
+        override fun bind(item:ChatItem,listener: (ChatItem) -> Unit){
 
             with(tv_date_archive){
                 visibility = if (item.messageCount > 0) View.VISIBLE else View.GONE
-                text = item.messageCount.toString()
+                text = item.lastMessageDate
             }
 
             with(tv_counter_archive){

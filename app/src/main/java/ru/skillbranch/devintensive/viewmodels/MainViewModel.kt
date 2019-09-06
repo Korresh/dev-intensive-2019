@@ -16,15 +16,15 @@ class MainViewModel : ViewModel() {
     private val chats = Transformations.map(chatRepository.loadChats()) { chats ->
         val archived = chats
             .filter { it.isArchived }
-            .map{ it.toChatItem() }
-            .sortedBy { it.id.toInt() }
+            .map { it.toChatItem() }
+            .sortedBy { it.lastMessageDate }
         if (archived.count() < 1) {
-                 return@map chats
+            return@map chats
                 .map { it.toChatItem() }
                 .sortedBy { it.id.toInt() }
         } else {
             val archiveList = mutableListOf<ChatItem>()
-            archiveList.add(0,archived.last())
+            archiveList.add(0, archived.last())
             archiveList.addAll((chats.filter { !it.isArchived }.map { it.toChatItem() }))
             return@map archiveList
         }
