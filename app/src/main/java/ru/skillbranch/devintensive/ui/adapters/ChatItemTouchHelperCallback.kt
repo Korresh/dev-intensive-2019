@@ -5,17 +5,15 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.RectF
 import android.view.View
-import androidx.appcompat.view.menu.MenuView
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.ChatItem
-import ru.skillbranch.devintensive.models.data.ChatType
+
 
 class ChatItemTouchHelperCallback(
     val adapter: ChatAdapter,
-    val swipeListener : (ChatItem)->Unit
-):ItemTouchHelper.Callback() {
+    val swipeListener : (ChatItem)->Unit):ItemTouchHelper.Callback() {
     private val bgRect = RectF()
     private val bgPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val iconBounds = Rect()

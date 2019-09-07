@@ -69,6 +69,7 @@ class GroupActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
+        title = "Создание группы"
         userAdapter = UserAdapter {viewModel.handleSelectedItem(it.id)}
         val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         with(rv_user_list){

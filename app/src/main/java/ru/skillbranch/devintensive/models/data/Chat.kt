@@ -79,6 +79,19 @@ data class Chat(
                )
            }
     }
+    fun toChatItemArchive(): ChatItem {
+            val user = members.first()
+            return ChatItem(
+                id,
+                user.avatar,
+                Utils.toInitials(user.firstName, user.lastName) ?: "??",
+                "${user.firstName ?: ""} ${user.lastName ?: ""}",
+                lastMessageShort().first,
+                unreadableMessageCount(),
+                lastMessageDate()?.shortFormat(),
+                user.isOnline
+            )
+    }
 }
 
 enum class ChatType{
